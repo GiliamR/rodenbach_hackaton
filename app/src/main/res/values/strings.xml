@@ -4,5 +4,6 @@
     <!-- Strings used for fragments for navigation -->
     <string name="Welcome_text">Welcome to the town hall of Leuven!</string>
     <string name="language_select">Please select your language</string>
+    <string name="title_activity_google_maps">Map</string>
 
 </resources>
