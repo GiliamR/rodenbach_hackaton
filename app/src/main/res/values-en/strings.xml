@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">hackatonV1</string>
+    <string name="action_settings">Settings</string>
+    <string name="Welcome_text" >Welcome to the town hall of Leuven!</string>
+    <string name="language_select">Please select your language!</string>
+</resources>
