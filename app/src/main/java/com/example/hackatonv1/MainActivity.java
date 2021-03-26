@@ -2,13 +2,55 @@ package com.example.hackatonv1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.media.Image;
 import android.os.Bundle;
+import android.view.*;
+import android.widget.ImageButton;
+import android.support.v4.app.*;
+import android.widget.*;
 
 public class MainActivity extends AppCompatActivity {
+    Context context;
+    Resources resources;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ImageButton btnEng = (ImageButton) findViewById(R.id.englishSelect);
+        btnEng.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
+            }
+        });
+        ImageButton btnNL = (ImageButton) findViewById(R.id.dutchSelect);
+        btnEng.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
+
+            }
+        });
+        ImageButton btnFR = (ImageButton) findViewById(R.id.frenchSelect);
+        btnEng.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context = LocaleHelper.setLocale(MainActivity.this, "fr");
+                startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
+            }
+        });
+        ImageButton btnSp = (ImageButton) findViewById(R.id.spanishSelect);
+        btnEng.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
+            }
+        });
     }
+
 }
