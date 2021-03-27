@@ -14,10 +14,14 @@ import android.app.AlertDialog;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.PopupWindow;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -43,6 +47,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.lang.Object;
 
 import static com.google.android.gms.location.Geofence.NEVER_EXPIRE;
 
@@ -53,6 +58,9 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
     private TextView statue_name;
     private Image statue;
     private Button popup_quit, popup_goto;
+    int[] images;
+    String[] names;
+
 
     private GoogleMap mMap;
     //private static final String TAG = "GoogleMapsActivity";
@@ -76,7 +84,6 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         setContentView(R.layout.activity_google_maps);
 
         getLocationPermission();
-        geofencingClient = LocationServices.getGeofencingClient(this);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used
     }
 
@@ -185,11 +192,16 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
             mMap.setMyLocationEnabled(true);
         }
 
-        //MAKE GEOFENCE
-        geofenceList.add(new Geofence.Builder().setRequestId("geofence1").setCircularRegion(50.869818657388684, 4.716648173905761, 10).setExpirationDuration(NEVER_EXPIRE)
-                .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER |
-                        Geofence.GEOFENCE_TRANSITION_EXIT)
-                .build());
+        /*try {
+            FileInputStream fIn = openFileInput("markerFile");
+            int c;
+            String temp = "";
+            while ((c = fIn.read()) != -1){
+                temp = temp + Character.toString((char)c);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
 
         double[] latitudes ={50.869818657388684, 50.88484448348449, 50.88884640846997, 50.878230595214795, 50.87537708693789};
         double[] longitudes ={4.716648173905761, 4.69895582413673, 4.696270574295127, 4.691407137829304, 4.715706763709548};
@@ -204,10 +216,16 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         LatLng leuven = new LatLng(50.8798, 4.7005);
         //mMap.addMarker(new MarkerOptions().position(leuven).title("Marker in Leuven"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(leuven, 14f));
+        LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService
+                (Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.popup_general,null);
+        addContentView(view, null);
     }
 
-    public void createNewPopUp(int number){
-        dialogBuilder = new AlertDialog.Builder(this);
-        final View contactPopupView = getLayoutInflater().inflate(R.layout.popup_erasmus, null);
+
+
+    @Override
+    public void addContentView(View view, ViewGroup.LayoutParams params) {
+        super.addContentView(view   , null);
     }
 }
