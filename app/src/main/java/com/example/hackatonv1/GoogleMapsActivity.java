@@ -36,13 +36,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        Button spot1 = (Button) findViewById(R.id.spot1);
-        spot1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
-            }
-        });
+
     }
 
     /**
