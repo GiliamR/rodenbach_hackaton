@@ -1,5 +1,6 @@
 package com.example.hackatonv1;
 
+
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -9,11 +10,13 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.location.Location;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.security.keystore.StrongBoxUnavailableException;
 import android.util.Log;
 import android.widget.Toast;
 import android.view.View;
@@ -32,6 +35,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -45,6 +49,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.example.hackatonv1.Globals.getLang;
+import static com.example.hackatonv1.Globals.setName;
+import static com.example.hackatonv1.Globals.setId;
+
 import static com.google.android.gms.location.Geofence.NEVER_EXPIRE;
 
 public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -54,6 +62,9 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
     private TextView statue_name;
     private Image statue;
     private Button popup_quit, popup_goto;
+    int[] images;
+    String[] names;
+
 
     private GoogleMap mMap;
     //private static final String TAG = "GoogleMapsActivity";
@@ -77,7 +88,6 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         setContentView(R.layout.activity_google_maps);
 
         getLocationPermission();
-        geofencingClient = LocationServices.getGeofencingClient(this);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used
     }
 
@@ -103,7 +113,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
                                     Toast.makeText(GoogleMapsActivity.this, Double.toString(distance), Toast.LENGTH_SHORT).show();
 
                                     //moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), 14f);
-                                }else{
+                                } else {
                                     Log.d(TAG, "onComplete: current location is NULL");
                                     Toast.makeText(GoogleMapsActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
                                 }
@@ -186,29 +196,67 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
             mMap.setMyLocationEnabled(true);
         }
 
-        //MAKE GEOFENCE
-        geofenceList.add(new Geofence.Builder().setRequestId("geofence1").setCircularRegion(50.869818657388684, 4.716648173905761, 10).setExpirationDuration(NEVER_EXPIRE)
-                .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER |
-                        Geofence.GEOFENCE_TRANSITION_EXIT)
-                .build());
+        /*try {
+            FileInputStream fIn = openFileInput("markerFile");
+            int c;
+            String temp = "";
+            while ((c = fIn.read()) != -1){
+                temp = temp + Character.toString((char)c);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
 
-        double[] latitudes ={50.869818657388684, 50.88484448348449, 50.88884640846997, 50.878230595214795, 50.87537708693789};
-        double[] longitudes ={4.716648173905761, 4.69895582413673, 4.696270574295127, 4.691407137829304, 4.715706763709548};
-        String[] markerNames ={"Tombstone Vital De Coster", "Klein Begijnhof Leuven", "Keizersberg Abdij", "Kruidtuin", "Hackathon Rodenbach"};
-        List<LatLng> markerList=new ArrayList<LatLng>();
-        for (int i = 0 ; i < latitudes.length; i++){
-            markerList.add(new LatLng(latitudes[i],longitudes[i]));
-            mMap.addMarker(new MarkerOptions().position(new LatLng(latitudes[i],longitudes[i])).title(markerNames[i]));
-        };
+        double[] latitudes = {50.869818657388684, 50.88484448348449, 50.88884640846997, 50.878230595214795, 50.87537708693789};
+        double[] longitudes = {4.716648173905761, 4.69895582413673, 4.696270574295127, 4.691407137829304, 4.715706763709548};
+        String[] markerNames = {"Tombstone Vital De Coster", "Klein Begijnhof Leuven", "Keizersberg Abdij", "Kruidtuin", "Hackathon Rodenbach"};
+        List<LatLng> markerList = new ArrayList<LatLng>();
+        for (int i = 0; i < latitudes.length; i++) {
+            markerList.add(new LatLng(latitudes[i], longitudes[i]));
+            mMap.addMarker(new MarkerOptions().position(new LatLng(latitudes[i], longitudes[i])).title(markerNames[i]));
+        }
+        ;
 
         // Add a marker in Sydney and move the camera
         LatLng leuven = new LatLng(50.8798, 4.7005);
         //mMap.addMarker(new MarkerOptions().position(leuven).title("Marker in Leuven"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(leuven, 14f));
-    }
 
-    public void createNewPopUp(int number){
-        dialogBuilder = new AlertDialog.Builder(this);
-        final View contactPopupView = getLayoutInflater().inflate(R.layout.popup_spot_1, null);
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker m) {
+                switch (m.getTitle()) {
+                    case "Tombstone Vital De Coster":
+                        setName("Vesalius");
+                        setId("andreas_vesalius");
+                        break;
+
+                    case "Klein Begijnhof Leuven":
+                        setName("Erasmus");
+                        setId("erasmus");
+                        break;
+
+                    case "Keizersberg Abdij":
+                        setName("Mercator");
+                        setId("mercator");
+                        break;
+
+                    case "Kruidtuin":
+                        setName("Fiere Margriet");
+                        setId("fiere_margriet");
+                        break;
+
+                    case "Hackaton Rodenback":
+                        setName("Rodenbach");
+                        setId("justus_lipsius");
+                        break;
+
+                    default:
+                        break;
+                }
+                startActivity(new Intent(GoogleMapsActivity.this, PopupActivity.class));
+                return true;
+            }
+        });
     }
 }

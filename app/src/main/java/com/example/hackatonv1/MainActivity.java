@@ -18,9 +18,13 @@ import android.widget.ImageButton;
 import android.support.v4.app.*;
 import android.widget.*;
 
+import static com.example.hackatonv1.Globals.getLang;
+import static com.example.hackatonv1.Globals.setLang;
+
 public class MainActivity extends AppCompatActivity {
     Context context;
     Resources resources;
+    String currentStatue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,34 +56,39 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 context = LocaleHelper.setLocale(MainActivity.this, "en");
-                //startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
+                resources = context.getResources();
+                setLang("en");
+                startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
             }
         });
         ImageButton btnNL = (ImageButton) findViewById(R.id.dutchSelect);
-        btnEng.setOnClickListener(new View.OnClickListener() {
+        btnNL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 context = LocaleHelper.setLocale(MainActivity.this, "nl");
                 resources = context.getResources();
+                setLang("nl");
                 startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
 
             }
         });
         ImageButton btnFR = (ImageButton) findViewById(R.id.frenchSelect);
-        btnEng.setOnClickListener(new View.OnClickListener() {
+        btnFR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 context = LocaleHelper.setLocale(MainActivity.this, "fr");
                 resources = context.getResources();
+                setLang("fr");
                 startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
             }
         });
         ImageButton btnSp = (ImageButton) findViewById(R.id.spanishSelect);
-        btnEng.setOnClickListener(new View.OnClickListener() {
+        btnSp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 context = LocaleHelper.setLocale(MainActivity.this, "es");
                 resources = context.getResources();
+                setLang("es");
                 startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
             }
         });
