@@ -9,9 +9,15 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -29,6 +35,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCallback {
+
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
+    private TextView statue_name;
+    private Image statue;
+    private Button popup_quit, popup_goto;
 
     private GoogleMap mMap;
     //private static final String TAG = "GoogleMapsActivity";
@@ -89,23 +101,6 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         }
     }
 
-    /*public boolean isServicesOK(){
-        Log.d(TAG, "isServicesOK: checking google services version");
-        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(GoogleMapsActivity.this);
-        if(available == ConnectionResult.SUCCESS){
-            //everything works well
-            Log.d(TAG, "isServicesOK: Google Play services are working");
-            return true;
-        }else if(GoogleApiAvailability.getInstance().isUserResolvableError(available)){
-            //error but can be resolved
-            Log.d(TAG, "isServicesOK: an error but we can fix it");
-            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(GoogleMapsActivity.this, available, ERROR_DIALOG_REQUEST);
-        }else{
-            Toast.makeText(this, "can't make map requests", Toast.LENGTH_SHORT).show();
-        }
-        return false;
-    }*/
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -145,5 +140,8 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(leuven, 14f));
     }
 
-
+    public void createNewPopUp(int number){
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View contactPopupView = getLayoutInflater().inflate(R.layout.popup_spot_1, null);
+    }
 }

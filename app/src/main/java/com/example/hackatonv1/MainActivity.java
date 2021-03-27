@@ -25,13 +25,16 @@ public class MainActivity extends AppCompatActivity {
         btnEng.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
+                context = LocaleHelper.setLocale(MainActivity.this, "en");
+                //startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
             }
         });
         ImageButton btnNL = (ImageButton) findViewById(R.id.dutchSelect);
         btnEng.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                context = LocaleHelper.setLocale(MainActivity.this, "nl");
+                resources = context.getResources();
                 startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
 
             }
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 context = LocaleHelper.setLocale(MainActivity.this, "fr");
+                resources = context.getResources();
                 startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
             }
         });
@@ -48,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         btnEng.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                context = LocaleHelper.setLocale(MainActivity.this, "es");
+                resources = context.getResources();
                 startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
             }
         });
