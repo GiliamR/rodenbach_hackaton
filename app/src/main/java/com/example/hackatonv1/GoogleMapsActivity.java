@@ -11,7 +11,6 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
@@ -209,6 +208,6 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
 
     public void createNewPopUp(int number){
         dialogBuilder = new AlertDialog.Builder(this);
-        final View contactPopupView = getLayoutInflater().inflate(R.layout.popup_spot_1, null);
+        final View contactPopupView = getLayoutInflater().inflate(R.layout.popup_erasmus, null);
     }
 }
