@@ -14,14 +14,11 @@ public class Globals {
     }
 
     private Globals(){
-
     }
-
-    private String pictureId;
-
     public static String getId(){
         return Id;
     }
-    public static void setId(String Id){ Id=Id;
+    public static void setId(String newId){
+        Globals.Id = newId;
     }
 }

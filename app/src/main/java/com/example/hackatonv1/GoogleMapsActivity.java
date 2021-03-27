@@ -223,35 +223,35 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker m) {
-                /*switch (m.getTitle()) {
+                switch (m.getTitle()) {
                     case "Tombstone Vital De Coster":
                         setName("Vesalius");
-                        setId("andreas_vesalius.PNG");
+                        setId("andreas_vesalius");
                         break;
 
                     case "Klein Begijnhof Leuven":
                         setName("Erasmus");
-                        setId("erasmus.PNG");
+                        setId("erasmus");
                         break;
 
                     case "Keizersberg Abdij":
                         setName("Mercator");
-                        setId("mercator.PNG");
+                        setId("mercator");
                         break;
 
                     case "Kruidtuin":
                         setName("Fiere Margriet");
-                        setId("fiere_margriet.PNG");
+                        setId("fiere_margriet");
                         break;
 
                     case "Hackaton Rodenback":
                         setName("Rodenbach");
-                        setId("justus_lipsius.PNG");
+                        setId("justus_lipsius");
                         break;
 
                     default:
                         break;
-                }*/
+                }
                 startActivity(new Intent(GoogleMapsActivity.this, PopupActivity.class));
                 return true;
             }
