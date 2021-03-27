@@ -7,6 +7,8 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -24,8 +26,10 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.Geofence;
+import com.google.android.gms.location.GeofenceStatusCodes;
 import com.google.android.gms.location.GeofencingClient;
 import com.google.android.gms.location.GeofencingEvent;
+import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -34,6 +38,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.maps.android.SphericalUtil;
 
@@ -53,17 +59,14 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
     private TextView statue_name;
     private Image statue;
     private Button popup_quit, popup_goto;
-
     private GoogleMap mMap;
     //private static final String TAG = "GoogleMapsActivity";
     //private static final int ERROR_DIALOG_REQUEST = 9001;
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
-    private GeofencingClient geofencingClient;
 
     private static final String TAG = "GoogleMapsActivity";
-    private List<Geofence> geofenceList = new ArrayList<>();
 
     //Vars
     private Boolean mLocationPermissionsGranted = false;
@@ -75,9 +78,6 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google_maps);
 
-        getLocationPermission();
-        geofencingClient = LocationServices.getGeofencingClient(this);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used
     }
 
     private void getDeviceLocation() {
@@ -186,10 +186,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         }
 
         //MAKE GEOFENCE
-        geofenceList.add(new Geofence.Builder().setRequestId("geofence1").setCircularRegion(50.869818657388684, 4.716648173905761, 10).setExpirationDuration(NEVER_EXPIRE)
-                .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER |
-                        Geofence.GEOFENCE_TRANSITION_EXIT)
-                .build());
+
 
         double[] latitudes ={50.869818657388684, 50.88484448348449, 50.88884640846997, 50.878230595214795, 50.87537708693789};
         double[] longitudes ={4.716648173905761, 4.69895582413673, 4.696270574295127, 4.691407137829304, 4.715706763709548};
@@ -210,4 +207,5 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         dialogBuilder = new AlertDialog.Builder(this);
         final View contactPopupView = getLayoutInflater().inflate(R.layout.popup_spot_1, null);
     }
+
 }
