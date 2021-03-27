@@ -2,7 +2,13 @@ package com.example.hackatonv1;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -12,6 +18,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCallback {
+
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
+    private TextView statue_name;
+    private Image statue;
+    private Button popup_quit, popup_goto;
 
     private GoogleMap mMap;
 
@@ -23,6 +35,14 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        Button spot1 = (Button) findViewById(R.id.spot1);
+        spot1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
+            }
+        });
     }
 
     /**
@@ -42,5 +62,10 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         LatLng leuven = new LatLng(50.8798, 4.7005);
         mMap.addMarker(new MarkerOptions().position(leuven).title("Marker in Leuven"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(leuven, 14f));
+    }
+
+    public void createNewPopUp(int number){
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View contactPopupView = getLayoutInflater().inflate(R.layout.popup_spot_1, null);
     }
 }
