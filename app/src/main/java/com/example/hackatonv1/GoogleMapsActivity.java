@@ -69,6 +69,11 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         if(ContextCompat.checkSelfPermission(this.getApplicationContext(),FINE_LOCATION)== PackageManager.PERMISSION_GRANTED){
             if(ContextCompat.checkSelfPermission(this.getApplicationContext(),COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED){
                 mLocationPermissionsGranted = true;
+                SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                        .findFragmentById(R.id.map);
+                if (mapFragment != null) {
+                    mapFragment.getMapAsync(this);
+                }
             }else{
                 ActivityCompat.requestPermissions(this, permissions, LOCATION_PERMISSION_REQUEST_CODE);
             }
