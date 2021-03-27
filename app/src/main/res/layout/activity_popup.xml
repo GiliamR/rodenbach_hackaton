@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/cancelButton"
         android:layout_width="48dp"
         android:layout_height="46dp"
         android:layout_marginTop="24dp"
@@ -32,15 +32,17 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="391dp"
         android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/PopUpName"
-        app:srcCompat="@drawable/andreas_vesalius"
-        tools:layout_editor_absoluteX="72dp" />
+        app:srcCompat="@drawable/andreas_vesalius" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/seeMoreBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"

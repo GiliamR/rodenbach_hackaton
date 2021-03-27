@@ -1,5 +1,6 @@
 package com.example.hackatonv1;
 
+
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -14,6 +15,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.security.keystore.StrongBoxUnavailableException;
 import android.util.Log;
 import android.widget.Toast;
 import android.view.View;
@@ -45,6 +47,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static com.example.hackatonv1.Globals.setName;
+import static com.example.hackatonv1.Globals.setId;
 
 import static com.google.android.gms.location.Geofence.NEVER_EXPIRE;
 
@@ -106,7 +111,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
                                     Toast.makeText(GoogleMapsActivity.this, Double.toString(distance), Toast.LENGTH_SHORT).show();
 
                                     //moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), 14f);
-                                }else{
+                                } else {
                                     Log.d(TAG, "onComplete: current location is NULL");
                                     Toast.makeText(GoogleMapsActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
                                 }
@@ -200,14 +205,15 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
             e.printStackTrace();
         }*/
 
-        double[] latitudes ={50.869818657388684, 50.88484448348449, 50.88884640846997, 50.878230595214795, 50.87537708693789};
-        double[] longitudes ={4.716648173905761, 4.69895582413673, 4.696270574295127, 4.691407137829304, 4.715706763709548};
-        String[] markerNames ={"Tombstone Vital De Coster", "Klein Begijnhof Leuven", "Keizersberg Abdij", "Kruidtuin", "Hackathon Rodenbach"};
-        List<LatLng> markerList=new ArrayList<LatLng>();
-        for (int i = 0 ; i < latitudes.length; i++){
-            markerList.add(new LatLng(latitudes[i],longitudes[i]));
-            mMap.addMarker(new MarkerOptions().position(new LatLng(latitudes[i],longitudes[i])).title(markerNames[i]));
-        };
+        double[] latitudes = {50.869818657388684, 50.88484448348449, 50.88884640846997, 50.878230595214795, 50.87537708693789};
+        double[] longitudes = {4.716648173905761, 4.69895582413673, 4.696270574295127, 4.691407137829304, 4.715706763709548};
+        String[] markerNames = {"Tombstone Vital De Coster", "Klein Begijnhof Leuven", "Keizersberg Abdij", "Kruidtuin", "Hackathon Rodenbach"};
+        List<LatLng> markerList = new ArrayList<LatLng>();
+        for (int i = 0; i < latitudes.length; i++) {
+            markerList.add(new LatLng(latitudes[i], longitudes[i]));
+            mMap.addMarker(new MarkerOptions().position(new LatLng(latitudes[i], longitudes[i])).title(markerNames[i]));
+        }
+        ;
 
         // Add a marker in Sydney and move the camera
         LatLng leuven = new LatLng(50.8798, 4.7005);
@@ -217,11 +223,38 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker m) {
+                /*switch (m.getTitle()) {
+                    case "Tombstone Vital De Coster":
+                        setName("Vesalius");
+                        setId("andreas_vesalius.PNG");
+                        break;
+
+                    case "Klein Begijnhof Leuven":
+                        setName("Erasmus");
+                        setId("erasmus.PNG");
+                        break;
+
+                    case "Keizersberg Abdij":
+                        setName("Mercator");
+                        setId("mercator.PNG");
+                        break;
+
+                    case "Kruidtuin":
+                        setName("Fiere Margriet");
+                        setId("fiere_margriet.PNG");
+                        break;
+
+                    case "Hackaton Rodenback":
+                        setName("Rodenbach");
+                        setId("justus_lipsius.PNG");
+                        break;
+
+                    default:
+                        break;
+                }*/
                 startActivity(new Intent(GoogleMapsActivity.this, PopupActivity.class));
                 return true;
             }
         });
     }
-
-
 }
