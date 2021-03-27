@@ -34,7 +34,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/language_select_plz"
         android:layout_width="409dp"
         android:layout_height="78dp"
         android:layout_marginStart="1dp"
@@ -49,7 +49,7 @@
         tools:text="@string/language_select" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/englishSelect"
         android:layout_width="150dp"
         android:layout_height="100dp"
         android:layout_marginStart="32dp"
@@ -58,45 +58,45 @@
         android:background="#FFFFFF"
         android:scaleType="centerInside"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/language_select_plz"
         app:srcCompat="@drawable/brittish_flag" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/dutchSelect"
         android:layout_width="150dp"
         android:layout_height="100dp"
         android:layout_marginStart="28dp"
         android:layout_marginLeft="28dp"
         android:background="#FFFFFF"
         android:scaleType="centerInside"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton"
-        app:layout_constraintStart_toEndOf="@+id/imageButton"
-        app:layout_constraintTop_toTopOf="@+id/imageButton"
+        app:layout_constraintBottom_toBottomOf="@+id/englishSelect"
+        app:layout_constraintStart_toEndOf="@+id/englishSelect"
+        app:layout_constraintTop_toTopOf="@+id/englishSelect"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/dutch_flag" />
 
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/frenchSelect"
         android:layout_width="150dp"
         android:layout_height="116dp"
         android:layout_marginTop="36dp"
         android:background="#FFFFFF"
         android:scaleType="centerInside"
-        app:layout_constraintEnd_toEndOf="@+id/imageButton"
+        app:layout_constraintEnd_toEndOf="@+id/englishSelect"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageButton"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton"
+        app:layout_constraintStart_toStartOf="@+id/englishSelect"
+        app:layout_constraintTop_toBottomOf="@+id/englishSelect"
         app:srcCompat="@drawable/french_flag" />
 
     <ImageButton
-        android:id="@+id/imageButton4"
+        android:id="@+id/spanishSelect"
         android:layout_width="150dp"
         android:layout_height="103dp"
         android:background="#FFFFFF"
         android:scaleType="centerInside"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton3"
-        app:layout_constraintEnd_toEndOf="@+id/imageButton2"
-        app:layout_constraintStart_toStartOf="@+id/imageButton2"
-        app:layout_constraintTop_toTopOf="@+id/imageButton3"
+        app:layout_constraintBottom_toBottomOf="@+id/frenchSelect"
+        app:layout_constraintEnd_toEndOf="@+id/dutchSelect"
+        app:layout_constraintStart_toStartOf="@+id/dutchSelect"
+        app:layout_constraintTop_toTopOf="@+id/frenchSelect"
         app:srcCompat="@drawable/flag_spain" />
 </androidx.constraintlayout.widget.ConstraintLayout>
