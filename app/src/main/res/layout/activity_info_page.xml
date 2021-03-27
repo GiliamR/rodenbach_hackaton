@@ -19,10 +19,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
+            android:label="@string/action_settings"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/toolbar"
-            android:label="@string/action_settings">
+            app:toolbarId="@+id/toolbar">
+
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -30,6 +31,17 @@
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/Theme.HackatonV1.PopupOverlay" />
+
+            <TextView
+                android:id="@+id/TextViewName"
+                android:layout_width="157dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:textColor="@color/black"
+                android:layout_marginTop="80dp"
+                android:text="Naam"
+                android:textSize="30dp"
+                android:textStyle="bold" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>

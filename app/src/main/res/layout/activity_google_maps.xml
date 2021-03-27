@@ -13,4 +13,19 @@
         android:layout_height="match_parent"
         tools:context=".GoogleMapsActivity" />
 
+    <Button
+        android:id="@+id/qrButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/qrcode_small"/>
+
+    <Button
+        android:id="@+id/shopsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/black"
+        android:textColor="@color/white"
+        android:text="Shops and Drinks" />
+
 </RelativeLayout>

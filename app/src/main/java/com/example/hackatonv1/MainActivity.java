@@ -6,12 +6,18 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.app.PendingIntent;
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.*;
 import android.widget.ImageButton;
 import android.support.v4.app.*;
@@ -29,9 +35,13 @@ import java.util.List;
 
 import static com.google.android.gms.location.Geofence.NEVER_EXPIRE;
 
+import static com.example.hackatonv1.Globals.getLang;
+import static com.example.hackatonv1.Globals.setLang;
+
 public class MainActivity extends AppCompatActivity {
     Context context;
     Resources resources;
+    String currentStatue;
     PendingIntent geofencePendingIntent;
     private GeofencingClient geofencingClient;
     private List<Geofence> geofenceList = new ArrayList<>();
@@ -39,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        createNotificationChannel();
         setContentView(R.layout.activity_main);
         geofencingClient = LocationServices.getGeofencingClient(this);
         geofenceList.add(new Geofence.Builder().setRequestId("geofence1").setCircularRegion(50.869818657388684, 4.716648173905761, 10).setExpirationDuration(NEVER_EXPIRE)
@@ -59,6 +70,17 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        Intent intent = new Intent(MainActivity.this, NotificationMessage.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        long timeAtButtonClick = System.currentTimeMillis();
+        long tenSecondsInMillis = 1000 * 10;
+        alarmManager.set(AlarmManager.RTC_WAKEUP, timeAtButtonClick+tenSecondsInMillis, pendingIntent);
+
+
+
+
         ImageView secretBtn = (ImageView) findViewById(R.id.imageView);
         secretBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,43 +94,44 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 context = LocaleHelper.setLocale(MainActivity.this, "en");
-                //startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
+                resources = context.getResources();
+                setLang("en");
+                startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
             }
         });
         ImageButton btnNL = (ImageButton) findViewById(R.id.dutchSelect);
-        btnEng.setOnClickListener(new View.OnClickListener() {
+        btnNL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 context = LocaleHelper.setLocale(MainActivity.this, "nl");
                 resources = context.getResources();
+                setLang("nl");
                 startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
 
             }
         });
         ImageButton btnFR = (ImageButton) findViewById(R.id.frenchSelect);
-        btnEng.setOnClickListener(new View.OnClickListener() {
+        btnFR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 context = LocaleHelper.setLocale(MainActivity.this, "fr");
                 resources = context.getResources();
+                setLang("fr");
                 startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
             }
         });
         ImageButton btnSp = (ImageButton) findViewById(R.id.spanishSelect);
-        btnEng.setOnClickListener(new View.OnClickListener() {
+        btnSp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 context = LocaleHelper.setLocale(MainActivity.this, "es");
                 resources = context.getResources();
+                setLang("es");
                 startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
             }
         });
     }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
 
-    }
 
     private PendingIntent getGeofencePendingIntent() {
         // Reuse the PendingIntent if we already have it.
@@ -127,6 +150,19 @@ public class MainActivity extends AppCompatActivity {
         builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER);
         builder.addGeofences(geofenceList);
         return builder.build();
+    }
+
+    private void createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "UserNotificationChannel";
+            String description = "informing users with historical knowledge";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("notifyUsers", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
 }

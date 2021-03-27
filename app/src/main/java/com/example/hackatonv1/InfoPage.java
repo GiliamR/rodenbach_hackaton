@@ -1,5 +1,7 @@
 package com.example.hackatonv1;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -13,12 +15,17 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.Voice;
+import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Locale;
+
+import static com.example.hackatonv1.Globals.getLang;
+import static com.example.hackatonv1.Globals.getName;
 
 public class InfoPage extends AppCompatActivity {
     TextToSpeech t1;
@@ -35,8 +42,43 @@ public class InfoPage extends AppCompatActivity {
         }
         CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
 
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         TextView text = (TextView)findViewById(R.id.explanation);
+        final ImageView foto = (ImageView) findViewById(R.id.imageView2);
+        TextView nameBox = (TextView)findViewById(R.id.TextViewName);
+        String name = getName();
+        nameBox.setText(name);
+        switch (name) {
+            case "Mercator":
+                foto.setImageResource(R.drawable.mercator);
+                text.setText(R.string.text_mercator);
+                break;
+
+            case "Fiere Margriet":
+                foto.setImageResource(R.drawable.fiere_margriet);
+                text.setText(R.string.text_margriet);
+                break;
+
+            case "Rodenbach":
+                foto.setImageResource(R.drawable.dirk_bouts);
+                text.setText(R.string.text_lipsius);
+                break;
+
+            case "Erasmus":
+                foto.setImageResource(R.drawable.erasmus);
+                text.setText(R.string.text_erasmus);
+                break;
+
+            case "Vesalius":
+                foto.setImageResource(R.drawable.andreas_vesalius);
+                text.setText(R.string.text_vesalius);
+                break;
+
+            default:
+                break;
+
+        }
         Voice voiceobj = new Voice("it-it-x-kda#male_2-local",
                 Locale.getDefault(), Voice.QUALITY_VERY_HIGH, 1, false, null);
         t1 = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
