@@ -125,9 +125,9 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
             e.printStackTrace();
         }*/
 
-        double[] latitudes ={50.869818657388684, 50.88884640846997, 50.878230595214795};
-        double[] longitudes ={4.716648173905761, 4.696270574295127, 4.691407137829304};
-        String[] markerNames ={"Tombstone Vital De Coster", "Keizersberg Abdij", "Kruidtuin"};
+        double[] latitudes ={50.869818657388684, 50.88484448348449, 50.88884640846997, 50.878230595214795, 50.87537708693789};
+        double[] longitudes ={4.716648173905761, 4.69895582413673, 4.696270574295127, 4.691407137829304, 4.715706763709548};
+        String[] markerNames ={"Tombstone Vital De Coster", "Klein Begijnhof Leuven", "Keizersberg Abdij", "Kruidtuin", "Hackathon Rodenbach"};
         List<LatLng> markerList=new ArrayList<LatLng>();
         for (int i = 0 ; i < latitudes.length; i++){
             markerList.add(new LatLng(latitudes[i],longitudes[i]));
