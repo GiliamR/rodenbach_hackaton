@@ -41,16 +41,6 @@ public class MainActivity extends AppCompatActivity {
         alarmManager.set(AlarmManager.RTC_WAKEUP, timeAtButtonClick+tenSecondsInMillis, pendingIntent);
 
 
-
-
-        ImageView secretBtn = (ImageView) findViewById(R.id.imageView);
-        secretBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, InfoPage.class));
-            }
-        });
-
         ImageButton btnEng = (ImageButton) findViewById(R.id.englishSelect);
         btnEng.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 context = LocaleHelper.setLocale(MainActivity.this, "en");
                 resources = context.getResources();
                 setLang("en");
-                startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
+                startActivity(new Intent(MainActivity.this, SelectionActivity.class));
             }
         });
         ImageButton btnNL = (ImageButton) findViewById(R.id.dutchSelect);
@@ -68,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 context = LocaleHelper.setLocale(MainActivity.this, "nl");
                 resources = context.getResources();
                 setLang("nl");
-                startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
+                startActivity(new Intent(MainActivity.this, SelectionActivity.class));
 
             }
         });
@@ -79,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 context = LocaleHelper.setLocale(MainActivity.this, "fr");
                 resources = context.getResources();
                 setLang("fr");
-                startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
+                startActivity(new Intent(MainActivity.this, SelectionActivity.class));
             }
         });
         ImageButton btnSp = (ImageButton) findViewById(R.id.spanishSelect);
@@ -89,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 context = LocaleHelper.setLocale(MainActivity.this, "es");
                 resources = context.getResources();
                 setLang("es");
-                startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
+                startActivity(new Intent(MainActivity.this, SelectionActivity.class));
             }
         });
     }
