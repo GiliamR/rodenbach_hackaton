@@ -48,19 +48,13 @@ public class MainActivity extends AppCompatActivity {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             geofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent())
-                    .addOnSuccessListener(this, new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            // Geofences added
-                            // ...
-                        }
+                    .addOnSuccessListener(this, aVoid -> {
+                        // Geofences added
+                        // ...
                     })
-                    .addOnFailureListener(this, new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            // Failed to add geofences
-                            // ...
-                        }
+                    .addOnFailureListener(this, e -> {
+                        // Failed to add geofences
+                        // ...
                     });
             return;
         }
@@ -113,21 +107,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        geofencingClient.removeGeofences(getGeofencePendingIntent())
-                .addOnSuccessListener(this, new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        // Geofences removed
-                        // ...
-                    }
-                })
-                .addOnFailureListener(this, new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Failed to remove geofences
-                        // ...
-                    }
-                });
+
     }
 
     private PendingIntent getGeofencePendingIntent() {
