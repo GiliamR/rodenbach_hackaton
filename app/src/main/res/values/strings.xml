@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">hackatonV1</string>
+    <string name="app_name" translatable="false"></string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="Welcome_text">Welcome to the town hall of Leuven!</string>
@@ -8,7 +8,7 @@
     <string name="erasmus" translatable="false">Erasmus</string>
     <string name="vesalius" translatable="false">Vesalius</string>
     <string name="popup_name" translatable="false"></string>
-    <string name="statue_name" translatable="false">naam</string>
+    <string name="statue_name" translatable="false"></string>
     <string name="text_mercator">The young Gerard De Kremer (1512-1594) enrolled at the University of Leuven as Gerardus Mercator Rupelmundanus in order to study mathematics. He took on a job in the city as a surveyor after completing his studies. He and his family settled in the Schrijnmakersstraat, near the Mechelsestraat. This scholar was very interested in the universe and his greatest dream was to draw a comprehensive map bookof the earth and the heavens. His life’s work would consume him, but he never finished his atlas. When he died in 1594 in Duisburg (Germany), his descendants were working on his project. It was not completed until 1695 and goes on to become a bestseller.</string>
     <string name="text_margriet">There are many variations on the legend of the Blessed Margaretha of Leuven, some more reliable than others. Margaretha – or Margriet – was born into a poor family 800 years ago. Legend has it that after a robbery in the inn where she worked, she was dragged away to the outskirts of the city by six robbers. She fought them off so bravely that they ultimately killed her, throwing her body in the Dijle River. Instead of floating downstream, her body floated back to Leuven upstream. The Duke himself is said to have witnessed the scene. Margaretha of Leuven was beatified in 1902 and her skull is preserved in Saint Peter’s Church to this very day</string>
     <string name="text_erasmus">Philosopher, writer, critic of the Roman Catholic Church, philologist. It is difficult to put just one label on Desiderius Erasmus (+/-1467-1536), but, regardless of what you call him, he became one of the most important humanistsof the Renaissance. His most famous work is In Praise of Folly, a satirical and critical portrait of mankind. He founded the Collegium Trilingue to promote the knowledge of Greek, Latin, and Hebrew in Leuven. Several prominent scholars of the time, including Mercator, Vesalius, and Dodoens attended lectures here. Erasmus himself translated the New Testament into Latin, using the Greek source text as his basis.</string>
