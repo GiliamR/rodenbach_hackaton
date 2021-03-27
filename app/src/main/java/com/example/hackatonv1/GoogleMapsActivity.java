@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentActivity;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.app.AlertDialog;
@@ -35,6 +36,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -216,16 +218,20 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         LatLng leuven = new LatLng(50.8798, 4.7005);
         //mMap.addMarker(new MarkerOptions().position(leuven).title("Marker in Leuven"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(leuven, 14f));
-        LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService
-                (Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.popup_general,null);
-        addContentView(view, null);
+
+
     }
-
-
-
     @Override
-    public void addContentView(View view, ViewGroup.LayoutParams params) {
-        super.addContentView(view   , null);
+    public boolean onMarkerClick(Marker marker) {
+        String currentStatue = marker.getTitle();
+        {
+            public void onClick(View v) {
+            context = LocaleHelper.setLocale(MainActivity.this, "nl");
+            resources = context.getResources();
+            startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
+
+        }
+        return false;
     }
+
 }

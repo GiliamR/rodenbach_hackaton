@@ -15,6 +15,7 @@ import android.widget.*;
 public class MainActivity extends AppCompatActivity {
     Context context;
     Resources resources;
+    String currentStatue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
