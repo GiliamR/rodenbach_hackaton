@@ -36,7 +36,7 @@ public class InfoPage extends AppCompatActivity {
         CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        TextView text = (TextView)findViewById(R.id.textView2);
+        TextView text = (TextView)findViewById(R.id.explanation);
         Voice voiceobj = new Voice("it-it-x-kda#male_2-local",
                 Locale.getDefault(), Voice.QUALITY_VERY_HIGH, 1, false, null);
         t1 = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {

@@ -11,4 +11,5 @@
     <string name="large_text">The young Gerard De Kremer (1512-1594) enrolled at the University of Leuven as Gerardus Mercator Rupelmundanus in order to study mathematics. He took on a job in the city as a surveyor after completing his studies. He and his family settled in the Schrijnmakersstraat, near the Mechelsestraat. This scholar was very interested in the universe and his greatest dream was to draw a comprehensive map bookof the earth and the heavens. His life’s work would consume him, but he never finished his atlas. When he died in 1594 in Duisburg (Germany), his descendants were working on his project. It was not completed until 1695 and goes on to become a bestseller.</string>
     <string name="info_image" translatable="false">info image</string>
     <string name="statue_name" translatable="false">Gerardus Mercator</string>
+    <string name="subtitle">subtitle</string>
 </resources>
