@@ -34,7 +34,7 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
             Log.e("tag",errorMessage);
             return;
         }
-
+        Log.i("geofence", "working");
         // Get the transition type.
         int geofenceTransition = geofencingEvent.getGeofenceTransition();
 
