@@ -18,6 +18,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.security.keystore.StrongBoxUnavailableException;
 import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +35,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -50,6 +52,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.example.hackatonv1.Globals.getLang;
+import static com.example.hackatonv1.Globals.setLang;
 import static com.example.hackatonv1.Globals.setName;
 import static com.example.hackatonv1.Globals.setId;
 
@@ -64,6 +67,8 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
     private Button popup_quit, popup_goto;
     int[] images;
     String[] names;
+    Context context;
+    Resources resources;
 
 
     private GoogleMap mMap;
@@ -89,6 +94,31 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
 
         getLocationPermission();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used
+
+        Button shopsBtn = (Button) findViewById(R.id.shopsButton);
+        shopsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                double[] latitudes = {50.878046271875114, 50.88780911837633, 50.8771438663048};
+                double[] longitudes = {4.699030469592737, 4.700266911713537, 4.700555142818541};
+                String[] markerNames = {"Café Belge", "Café Entrepot", "Noir Coffeebar"};
+                List<LatLng> markerList = new ArrayList<LatLng>();
+                for (int i = 0; i < latitudes.length; i++) {
+                    markerList.add(new LatLng(latitudes[i], longitudes[i]));
+                    mMap.addMarker(new MarkerOptions().position(new LatLng(latitudes[i], longitudes[i])).title(markerNames[i]).icon(BitmapDescriptorFactory.fromResource(R.drawable.cafemarker)));
+                }
+
+                //50.879538289908695, 4.705907127264086
+                double[] latitudes2 = {50.879538289908695, 50.880554010521955, 50.88046510762541};
+                double[] longitudes2 = {4.705907127264086, 4.695961813771077, 4.70889560384445};
+                String[] markerNames2 = {"fnac", "Objets Trouvés", "Kruidvat"};
+                List<LatLng> markerList2 = new ArrayList<LatLng>();
+                for (int i = 0; i < latitudes2.length; i++) {
+                    markerList2.add(new LatLng(latitudes2[i], longitudes2[i]));
+                    mMap.addMarker(new MarkerOptions().position(new LatLng(latitudes2[i], longitudes2[i])).title(markerNames2[i]).icon(BitmapDescriptorFactory.fromResource(R.drawable.shopicon)));
+                }
+            }
+        });
     }
 
     private void getDeviceLocation() {
@@ -222,6 +252,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         //mMap.addMarker(new MarkerOptions().position(leuven).title("Marker in Leuven"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(leuven, 14f));
 
+
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker m) {
@@ -246,13 +277,13 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
                         setId("fiere_margriet");
                         break;
 
-                    case "Hackaton Rodenback":
+                    case "Hackathon Rodenbach":
                         setName("Rodenbach");
                         setId("justus_lipsius");
                         break;
 
                     default:
-                        break;
+                        return false;
                 }
                 startActivity(new Intent(GoogleMapsActivity.this, PopupActivity.class));
                 return true;
