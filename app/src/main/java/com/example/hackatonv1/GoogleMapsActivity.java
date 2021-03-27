@@ -34,6 +34,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.maps.android.SphericalUtil;
 
@@ -87,27 +88,27 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
 
         try {
             if (mLocationPermissionsGranted) {
-                final Task location = mFusedLocationProviderClient.getLastLocation();
-                location.addOnCompleteListener(new OnCompleteListener() {
-                    @Override
-                    public void onComplete(@NonNull Task task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "OnComplete: Found Location");
-                            Location currentLocation = (Location) task.getResult();
-                            LatLng myLoc = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLoc, 14f));
 
-                            LatLng leuven = new LatLng(50.87537708693789, 4.715706763709548);
-                            double distance = SphericalUtil.computeDistanceBetween(leuven, myLoc);
-                            Toast.makeText(GoogleMapsActivity.this, Double.toString(distance), Toast.LENGTH_SHORT).show();
+                mFusedLocationProviderClient.getLastLocation()
+                        .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                            @Override
+                            public void onSuccess(Location currentLocation) {
+                                // Got last known location. In some rare situations this can be null.
+                                if (currentLocation != null) {
+                                    LatLng myLoc = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLoc, 14f));
 
-                            //moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), 14f);
-                        } else {
-                            Log.d(TAG, "onComplete: current location is NULL");
-                            Toast.makeText(GoogleMapsActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                                    LatLng leuven = new LatLng(50.87537708693789, 4.715706763709548);
+                                    double distance = SphericalUtil.computeDistanceBetween(leuven, myLoc);
+                                    Toast.makeText(GoogleMapsActivity.this, Double.toString(distance), Toast.LENGTH_SHORT).show();
+
+                                    //moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), 14f);
+                                }else{
+                                    Log.d(TAG, "onComplete: current location is NULL");
+                                    Toast.makeText(GoogleMapsActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
             }
         } catch (SecurityException e) {
             Log.e(TAG, "GetDeviceLocation: SecurityException " + e.getMessage());
