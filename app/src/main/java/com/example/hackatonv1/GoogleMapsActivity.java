@@ -95,6 +95,14 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         getLocationPermission();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used
 
+        Button secretBtn = (Button) findViewById(R.id.qrButton);
+        secretBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(GoogleMapsActivity.this, qrCodePage.class));
+            }
+        });
+
         Button shopsBtn = (Button) findViewById(R.id.shopsButton);
         shopsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,7 +148,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
 
                                     LatLng leuven = new LatLng(50.87537708693789, 4.715706763709548);
                                     double distance = SphericalUtil.computeDistanceBetween(leuven, myLoc);
-                                    Toast.makeText(GoogleMapsActivity.this, Double.toString(distance), Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(GoogleMapsActivity.this, Double.toString(distance), Toast.LENGTH_SHORT).show();
 
                                     //moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), 14f);
                                 } else {
