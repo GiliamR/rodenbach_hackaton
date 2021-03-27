@@ -8,21 +8,17 @@ import androidx.fragment.app.FragmentActivity;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.PopupWindow;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -49,7 +45,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.lang.Object;
 
 import static com.google.android.gms.location.Geofence.NEVER_EXPIRE;
 
@@ -219,19 +214,14 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         //mMap.addMarker(new MarkerOptions().position(leuven).title("Marker in Leuven"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(leuven, 14f));
 
-
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker m) {
+                startActivity(new Intent(GoogleMapsActivity.this, PopupActivity.class));
+                return true;
+            }
+        });
     }
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-        String currentStatue = marker.getTitle();
-        {
-            public void onClick(View v) {
-            context = LocaleHelper.setLocale(MainActivity.this, "nl");
-            resources = context.getResources();
-            startActivity(new Intent(MainActivity.this, GoogleMapsActivity.class));
 
-        }
-        return false;
-    }
 
 }
