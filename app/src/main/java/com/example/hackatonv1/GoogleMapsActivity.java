@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.app.AlertDialog;
@@ -22,6 +23,9 @@ import android.widget.TextView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.Geofence;
+import com.google.android.gms.location.GeofencingClient;
+import com.google.android.gms.location.GeofencingEvent;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -31,12 +35,16 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.maps.android.SphericalUtil;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import static com.google.android.gms.location.Geofence.NEVER_EXPIRE;
 
 public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -52,8 +60,10 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
+    private GeofencingClient geofencingClient;
 
     private static final String TAG = "GoogleMapsActivity";
+    private List<Geofence> geofenceList = new ArrayList<>();
 
     //Vars
     private Boolean mLocationPermissionsGranted = false;
@@ -66,6 +76,7 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         setContentView(R.layout.activity_google_maps);
 
         getLocationPermission();
+        geofencingClient = LocationServices.getGeofencingClient(this);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used
     }
 
@@ -85,6 +96,10 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
                             Location currentLocation = (Location) task.getResult();
                             LatLng myLoc = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLoc, 14f));
+
+                            LatLng leuven = new LatLng(50.87537708693789, 4.715706763709548);
+                            double distance = SphericalUtil.computeDistanceBetween(leuven, myLoc);
+                            Toast.makeText(GoogleMapsActivity.this, Double.toString(distance), Toast.LENGTH_SHORT).show();
 
                             //moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), 14f);
                         } else {
@@ -170,16 +185,11 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
             mMap.setMyLocationEnabled(true);
         }
 
-        /*try {
-            FileInputStream fIn = openFileInput("markerFile");
-            int c;
-            String temp = "";
-            while ((c = fIn.read()) != -1){
-                temp = temp + Character.toString((char)c);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
+        //MAKE GEOFENCE
+        geofenceList.add(new Geofence.Builder().setRequestId("geofence1").setCircularRegion(50.869818657388684, 4.716648173905761, 10).setExpirationDuration(NEVER_EXPIRE)
+                .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER |
+                        Geofence.GEOFENCE_TRANSITION_EXIT)
+                .build());
 
         double[] latitudes ={50.869818657388684, 50.88484448348449, 50.88884640846997, 50.878230595214795, 50.87537708693789};
         double[] longitudes ={4.716648173905761, 4.69895582413673, 4.696270574295127, 4.691407137829304, 4.715706763709548};
