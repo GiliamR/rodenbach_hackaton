@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import static com.example.hackatonv1.Globals.getId;
+import static com.example.hackatonv1.Globals.getLang;
 import static com.example.hackatonv1.Globals.getName;
 import static com.example.hackatonv1.Globals.setId;
 import static com.example.hackatonv1.Globals.setName;

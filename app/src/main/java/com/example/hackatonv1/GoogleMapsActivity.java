@@ -10,6 +10,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.location.Location;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -48,6 +49,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.example.hackatonv1.Globals.getLang;
 import static com.example.hackatonv1.Globals.setName;
 import static com.example.hackatonv1.Globals.setId;
 

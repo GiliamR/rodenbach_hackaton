@@ -1,5 +1,7 @@
 package com.example.hackatonv1;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -13,6 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.Voice;
+import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,6 +24,7 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
+import static com.example.hackatonv1.Globals.getLang;
 import static com.example.hackatonv1.Globals.getName;
 
 public class InfoPage extends AppCompatActivity {
